@@ -93,4 +93,9 @@ dependencies {
     implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03'
     kapt 'androidx.hilt:hilt-compiler:1.0.0'
 
+
+    // PDF view
+    implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
+
+
 }

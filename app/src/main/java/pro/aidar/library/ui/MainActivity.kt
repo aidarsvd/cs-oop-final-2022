@@ -31,7 +31,7 @@ import pro.aidar.library.utils.toggleVisible
 class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     private lateinit var searchView: SearchView
     private val binding: ActivityMainBinding by viewBinding()
-    private val adapter = BookAdapter()
+    private val adapter = BookAdapter(::onBookClick)
     private val viewModel: MainViewModel by viewModels()
     private lateinit var resultLauncher: ActivityResultLauncher<Intent>
 
@@ -57,6 +57,10 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
                 is Event.BooksFetched -> adapter.addBooks(it.list)
             }
         })
+    }
+
+    private fun onBookClick(uri: String) {
+        PdfActivity.start(this, uri)
     }
 
     private fun initAdapter() {
