@@ -6,12 +6,14 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import javax.inject.Inject
 import pro.aidar.library.data.data.add_book.use_case.AddBookUseCase
+import pro.aidar.library.data.data.get_books.use_case.GetBooksUseCase
 import pro.aidar.library.data.dto.Book
 import pro.aidar.library.data.dto.Event
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val addBookUseCase: AddBookUseCase
+    private val addBookUseCase: AddBookUseCase,
+    private val getBooksUseCase: GetBooksUseCase
 ) : ViewModel() {
 
     private val disposable: CompositeDisposable by lazy {
@@ -26,6 +28,15 @@ class MainViewModel @Inject constructor(
                 .doOnComplete { event.postValue(Event.BookInserted) }
                 .doOnError { event.postValue(Event.BookInsertError) }
                 .subscribe()
+        )
+    }
+
+    fun fetchBooks() {
+        disposable.add(
+            getBooksUseCase.getBooks()
+                .subscribe({
+                    event.postValue(Event.BooksFetched(it))
+                }, {})
         )
     }
 }

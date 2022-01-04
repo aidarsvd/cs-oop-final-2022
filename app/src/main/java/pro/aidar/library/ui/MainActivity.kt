@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         initAdapter()
         registerActivityResult()
         subscribeToLiveData()
-
+        viewModel.fetchBooks()
         binding.addBook.setOnClickListener {
             rxRequestPermissions(Manifest.permission.READ_EXTERNAL_STORAGE, onRequestGranted = {
                 pickFile()
@@ -52,8 +52,9 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     private fun subscribeToLiveData() {
         viewModel.event.observe(this, {
             when (it) {
-                is Event.BookInserted -> viewModel
+                is Event.BookInserted -> viewModel.fetchBooks()
                 is Event.BookInsertError -> showMessage("Can not add book")
+                is Event.BooksFetched -> adapter.addBooks(it.list)
             }
         })
     }

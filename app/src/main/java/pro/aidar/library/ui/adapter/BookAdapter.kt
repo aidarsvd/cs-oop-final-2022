@@ -24,7 +24,6 @@ class BookAdapter : RecyclerView.Adapter<BookAdapter.BookViewHolder>() {
 
     fun addBooks(list: List<Book>) {
         books.clear()
-        books.add(null)
         books.addAll(list)
         notifyDataSetChanged()
     }
