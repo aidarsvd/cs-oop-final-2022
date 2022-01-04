@@ -12,5 +12,6 @@ data class Book(
     var size: Int? = null,
     var updateDate: Date? = null,
     var author: String? = null,
-    var genre: String? = null
+    var genre: String? = null,
+    var bookUri: String? = null
 )
