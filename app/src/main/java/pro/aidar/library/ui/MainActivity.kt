@@ -85,7 +85,7 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     }
 
     private fun pickFile() {
-        val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
             type = "*/*"
             addCategory(Intent.CATEGORY_OPENABLE)
         }
