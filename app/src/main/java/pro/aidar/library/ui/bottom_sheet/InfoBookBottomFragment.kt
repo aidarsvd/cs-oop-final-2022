@@ -6,10 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import java.text.SimpleDateFormat
 import org.parceler.Parcels
 import pro.aidar.library.R
 import pro.aidar.library.data.dto.Book
 import pro.aidar.library.databinding.FragmentInfoBookBottomBinding
+import pro.aidar.library.utils.toMb
+import pro.aidar.library.utils.toStringFormat
 
 class InfoBookBottomFragment : BottomSheetDialogFragment() {
 
@@ -34,6 +37,10 @@ class InfoBookBottomFragment : BottomSheetDialogFragment() {
         }
         book.run {
             binding.bookName.text = name
+            binding.bookAuthor.text = author ?: getString(R.string.none_stub)
+            binding.bookGenre.text = genre ?: getString(R.string.none_stub)
+            binding.bookSize.text = book.size!!.toMb()
+            binding.bookUpdate.text = book.updateDate!!.toStringFormat()
         }
     }
 

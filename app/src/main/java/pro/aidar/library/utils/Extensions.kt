@@ -22,6 +22,8 @@ import com.tbruyelle.rxpermissions2.RxPermissions
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
+import java.text.SimpleDateFormat
+import java.util.Date
 import java.util.Locale
 import pro.aidar.library.R
 
@@ -152,4 +154,10 @@ fun Activity.displayPopUp(
         }
     }
     popup.show()
+}
+
+@SuppressLint("SimpleDateFormat")
+fun Date.toStringFormat(): String {
+    val format = SimpleDateFormat("dd.MM.yyy")
+    return format.format(this)
 }
