@@ -8,4 +8,9 @@
     <string name="permission_required">Permission required</string>
     <string name="ok">OK</string>
     <string name="file_not_found">File not found</string>
+    <string name="edit">Edit</string>
+    <string name="info">Info</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="book_name">Book Name:</string>
 </resources>

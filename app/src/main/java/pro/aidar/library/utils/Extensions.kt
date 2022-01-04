@@ -15,6 +15,7 @@ import android.provider.Settings
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.PopupMenu
 import androidx.core.view.isVisible
 import androidx.documentfile.provider.DocumentFile
 import com.tbruyelle.rxpermissions2.RxPermissions
@@ -129,4 +130,26 @@ private fun queryName(context: Context, uri: Uri): String {
     val name: String = returnCursor.getString(nameIndex)
     returnCursor.close()
     return name
+}
+
+fun Activity.displayPopUp(
+    view: View,
+    edit: () -> Unit,
+    info: () -> Unit
+) {
+    val popup = PopupMenu(this, view)
+    popup.inflate(R.menu.item_menu)
+    popup.setOnMenuItemClickListener { item ->
+        when (item.itemId) {
+            R.id.edit -> {
+                edit()
+                true
+            }
+            else -> {
+                info()
+                true
+            }
+        }
+    }
+    popup.show()
 }
