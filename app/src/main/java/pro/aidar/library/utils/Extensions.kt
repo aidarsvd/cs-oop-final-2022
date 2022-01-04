@@ -12,7 +12,9 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.documentfile.provider.DocumentFile
 import com.tbruyelle.rxpermissions2.RxPermissions
+import java.util.Locale
 import pro.aidar.library.R
 
 fun Long.toMb(): String {
@@ -82,4 +84,9 @@ fun Activity.openApplicationSettings() {
 
 fun Context.showMessage(text: String) {
     Toast.makeText(this, text, Toast.LENGTH_LONG).show()
+}
+
+fun DocumentFile.isPdf(): Boolean {
+    val extension = name!!.substringAfterLast('.', "").uppercase(Locale.getDefault())
+    return extension == "PDF"
 }

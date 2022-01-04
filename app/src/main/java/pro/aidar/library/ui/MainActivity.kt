@@ -19,8 +19,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.util.Calendar
 import pro.aidar.library.R
 import pro.aidar.library.data.dto.Book
+import pro.aidar.library.data.dto.Event
 import pro.aidar.library.databinding.ActivityMainBinding
 import pro.aidar.library.ui.adapter.BookAdapter
+import pro.aidar.library.utils.isPdf
 import pro.aidar.library.utils.rxRequestPermissions
 import pro.aidar.library.utils.showMessage
 import pro.aidar.library.utils.toggleVisible
@@ -38,11 +40,22 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         setContentView(R.layout.activity_main)
         initAdapter()
         registerActivityResult()
+        subscribeToLiveData()
+
         binding.addBook.setOnClickListener {
             rxRequestPermissions(Manifest.permission.READ_EXTERNAL_STORAGE, onRequestGranted = {
                 pickFile()
             })
         }
+    }
+
+    private fun subscribeToLiveData() {
+        viewModel.event.observe(this, {
+            when (it) {
+                is Event.BookInserted -> viewModel
+                is Event.BookInsertError -> showMessage("Can not add book")
+            }
+        })
     }
 
     private fun initAdapter() {
@@ -51,7 +64,7 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
     private fun pickFile() {
         val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
-            type = "application/pdf"
+            type = "*/*"
             addCategory(Intent.CATEGORY_OPENABLE)
         }
         resultLauncher.launch(intent)
@@ -64,13 +77,17 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
                 val uri: Uri = data?.data!!
                 val documentFile = DocumentFile.fromSingleUri(this, uri)
                 documentFile?.let {
-                    val book = Book(
-                        name = it.name,
-                        size = it.length(),
-                        updateDate = Calendar.getInstance().time,
-                        bookUri = uri.toString()
-                    )
-                    viewModel.addBook(model = book)
+                    if (it.isPdf()) {
+                        val book = Book(
+                            name = it.name,
+                            size = it.length(),
+                            updateDate = Calendar.getInstance().time,
+                            bookUri = uri.toString()
+                        )
+                        viewModel.addBook(model = book)
+                    } else {
+                        showMessage("Pick file with PDF extension!")
+                    }
                 } ?: run {
                     showMessage(
                         getString(R.string.file_not_found)
