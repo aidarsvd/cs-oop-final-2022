@@ -5,4 +5,9 @@ import pro.aidar.library.data.dto.Book
 
 interface GetBooksRepository {
     fun getBooks(): Observable<List<Book>>
+    fun searchBook(name: String): Observable<List<Book>>
+    fun getBooksByName(): Observable<List<Book>>
+    fun getBookByDate(): Observable<List<Book>>
+    fun getBookBySize(): Observable<List<Book>>
+    fun getBook(id: Int): Observable<Book>
 }

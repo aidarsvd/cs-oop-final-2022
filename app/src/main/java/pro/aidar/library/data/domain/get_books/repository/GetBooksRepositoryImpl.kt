@@ -16,4 +16,34 @@ class GetBooksRepositoryImpl @Inject constructor(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
     }
+
+    override fun searchBook(name: String): Observable<List<Book>> {
+        return dao.searchBookByName(name)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
+
+    override fun getBooksByName(): Observable<List<Book>> {
+        return dao.sortByBookSize()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
+
+    override fun getBookByDate(): Observable<List<Book>> {
+        return dao.getBooksByDate()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
+
+    override fun getBookBySize(): Observable<List<Book>> {
+        return dao.sortByBookSize()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
+
+    override fun getBook(id: Int): Observable<Book> {
+        return dao.getBookDetail(id)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
 }

@@ -40,11 +40,26 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         initAdapter()
         registerActivityResult()
         subscribeToLiveData()
+        initClick()
         viewModel.fetchBooks()
+    }
+
+    private fun initClick() {
         binding.addBook.setOnClickListener {
             rxRequestPermissions(onRequestGranted = {
                 pickFile()
             })
+        }
+        binding.date.setOnClickListener {
+            viewModel.fetchBooks(MainViewModel.Orders.DATE)
+        }
+
+        binding.name.setOnClickListener {
+            viewModel.fetchBooks(MainViewModel.Orders.NAME)
+        }
+
+        binding.size.setOnClickListener {
+            viewModel.fetchBooks(MainViewModel.Orders.SIZE)
         }
     }
 

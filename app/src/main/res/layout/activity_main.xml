@@ -29,12 +29,14 @@
                 android:text="@string/sort_by_date" />
 
             <RadioButton
+                android:id="@+id/name"
                 style="@style/SortButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/sort_by_name" />
 
             <RadioButton
+                android:id="@+id/size"
                 style="@style/SortButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
