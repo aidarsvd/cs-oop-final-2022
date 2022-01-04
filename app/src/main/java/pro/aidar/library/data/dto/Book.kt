@@ -3,7 +3,9 @@ package pro.aidar.library.data.dto
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.util.Date
+import org.parceler.Parcel
 
+@Parcel
 @Entity(tableName = "book_table")
 data class Book(
     @PrimaryKey(autoGenerate = true)

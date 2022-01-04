@@ -1,6 +1,7 @@
 package pro.aidar.library.ui.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import java.util.ArrayList
@@ -9,7 +10,8 @@ import pro.aidar.library.databinding.ItemBookBinding
 import pro.aidar.library.utils.toMb
 
 class BookAdapter(
-    val onBookClick: (uri: String) -> Unit
+    val onBookClick: (uri: String) -> Unit,
+    val onMoreClick: (view: View, book: Book) -> Unit
 ) : RecyclerView.Adapter<BookAdapter.BookViewHolder>() {
 
     private val books: ArrayList<Book?> = arrayListOf()
@@ -37,6 +39,9 @@ class BookAdapter(
                 binding.bookSize.text = book.size?.toMb()
                 itemView.setOnClickListener {
                     book.bookUri?.let { uri -> onBookClick(uri) }
+                }
+                binding.more.setOnClickListener {
+                    onMoreClick(it, book)
                 }
             }
         }

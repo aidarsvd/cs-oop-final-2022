@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -21,6 +22,8 @@ import pro.aidar.library.data.dto.Book
 import pro.aidar.library.data.dto.Event
 import pro.aidar.library.databinding.ActivityMainBinding
 import pro.aidar.library.ui.adapter.BookAdapter
+import pro.aidar.library.ui.bottom_sheet.InfoBookBottomFragment
+import pro.aidar.library.utils.displayPopUp
 import pro.aidar.library.utils.isPdf
 import pro.aidar.library.utils.rxRequestPermissions
 import pro.aidar.library.utils.showMessage
@@ -30,7 +33,7 @@ import pro.aidar.library.utils.toggleVisible
 class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     private lateinit var searchView: SearchView
     private val binding: ActivityMainBinding by viewBinding()
-    private val adapter = BookAdapter(::onBookClick)
+    private val adapter = BookAdapter(::onBookClick, ::onMoreClick)
     private val viewModel: MainViewModel by viewModels()
     private lateinit var resultLauncher: ActivityResultLauncher<Intent>
 
@@ -77,6 +80,18 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         startActivity(
             Intent(this, PdfActivity::class.java)
                 .putExtra("URI", uri)
+        )
+    }
+
+    private fun onMoreClick(view: View, model: Book) {
+        displayPopUp(
+            view = view,
+            edit = {
+
+            },
+            info = {
+                InfoBookBottomFragment.newInstance(model).show(supportFragmentManager, InfoBookBottomFragment.TAG)
+            }
         )
     }
 
