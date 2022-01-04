@@ -8,7 +8,9 @@ import pro.aidar.library.data.dto.Book
 import pro.aidar.library.databinding.ItemBookBinding
 import pro.aidar.library.utils.toMb
 
-class BookAdapter : RecyclerView.Adapter<BookAdapter.BookViewHolder>() {
+class BookAdapter(
+    val onBookClick: (uri: String) -> Unit
+) : RecyclerView.Adapter<BookAdapter.BookViewHolder>() {
 
     private val books: ArrayList<Book?> = arrayListOf()
 
@@ -24,16 +26,18 @@ class BookAdapter : RecyclerView.Adapter<BookAdapter.BookViewHolder>() {
 
     fun addBooks(list: List<Book>) {
         books.clear()
-        books.add(null)
         books.addAll(list)
         notifyDataSetChanged()
     }
 
     inner class BookViewHolder(private val binding: ItemBookBinding) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(model: Book?) {
-            model?.let {
-                binding.bookName.text = it.name
-                binding.bookSize.text = it.size?.toMb()
+            model?.let { book ->
+                binding.bookName.text = book.name
+                binding.bookSize.text = book.size?.toMb()
+                itemView.setOnClickListener {
+                    book.bookUri?.let { uri -> onBookClick(uri) }
+                }
             }
         }
     }
