@@ -1,4 +1,4 @@
-package pro.aidar.library.data.get_books.dao
+package pro.aidar.library.data.domain.get_books.dao
 
 import androidx.room.Dao
 import androidx.room.Query

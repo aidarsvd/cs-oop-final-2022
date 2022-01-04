@@ -7,7 +7,7 @@ import java.util.Date
 @Entity(tableName = "book_table")
 data class Book(
     @PrimaryKey(autoGenerate = true)
-    var id: Long,
+    var id: Int? = null,
     var name: String? = null,
     var size: Int? = null,
     var updateDate: Date? = null,

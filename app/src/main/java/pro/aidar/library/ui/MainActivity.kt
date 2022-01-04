@@ -3,6 +3,7 @@ package pro.aidar.library.ui
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
@@ -18,11 +19,15 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     private lateinit var searchView: SearchView
     private val binding: ActivityMainBinding by viewBinding()
     private val adapter = BookAdapter()
+    private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initAdapter()
+        binding.addBook.setOnClickListener {
+            viewModel.addBook()
+        }
     }
 
     private fun initAdapter() {

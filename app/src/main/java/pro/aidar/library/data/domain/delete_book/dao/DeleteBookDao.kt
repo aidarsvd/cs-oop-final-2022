@@ -1,4 +1,4 @@
-package pro.aidar.library.data.delete_book.dao
+package pro.aidar.library.data.domain.delete_book.dao
 
 import androidx.room.Dao
 import androidx.room.Delete

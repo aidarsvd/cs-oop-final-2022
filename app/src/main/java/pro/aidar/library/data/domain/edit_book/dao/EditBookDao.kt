@@ -1,4 +1,4 @@
-package pro.aidar.library.data.edit_book.dao
+package pro.aidar.library.data.domain.edit_book.dao
 
 import androidx.room.Dao
 import androidx.room.Update
