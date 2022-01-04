@@ -10,16 +10,23 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import pro.aidar.library.R
 import pro.aidar.library.databinding.ActivityMainBinding
+import pro.aidar.library.ui.adapter.BookAdapter
 import pro.aidar.library.utils.toggleVisible
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     private lateinit var searchView: SearchView
     private val binding: ActivityMainBinding by viewBinding()
+    private val adapter = BookAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        initAdapter()
+    }
+
+    private fun initAdapter() {
+        binding.booksRecycler.adapter = adapter
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

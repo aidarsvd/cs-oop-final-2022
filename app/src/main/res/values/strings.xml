@@ -4,4 +4,5 @@
     <string name="sort_by_date">Sort by date</string>
     <string name="sort_by_name">Sort by name</string>
     <string name="sort_by_book_size">Sort by book size</string>
+    <string name="add_book">add book</string>
 </resources>
