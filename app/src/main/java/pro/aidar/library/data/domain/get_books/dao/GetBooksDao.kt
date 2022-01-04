@@ -13,7 +13,7 @@ interface GetBooksDao {
     @Query("select * from book_table where id=:id")
     fun getBookDetail(id: Int): Observable<Book>
 
-    @Query("select * from book_table where name=:name")
+    @Query("select * from book_table where name like '%' || :name || '%'")
     fun searchBookByName(name: String): Observable<List<Book>>
 
     @Query("select * from book_table order by name asc")

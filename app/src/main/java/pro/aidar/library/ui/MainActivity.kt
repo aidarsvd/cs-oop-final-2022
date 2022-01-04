@@ -140,6 +140,7 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
             override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
                 binding.sortView.isVisible = false
+                viewModel.fetchBooks()
                 return true
             }
         })
@@ -149,6 +150,7 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
+        viewModel.searchBook(query!!)
         return true
     }
 

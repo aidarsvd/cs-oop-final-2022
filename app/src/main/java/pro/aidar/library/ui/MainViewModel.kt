@@ -48,6 +48,15 @@ class MainViewModel @Inject constructor(
             }, {})
     }
 
+    fun searchBook(name: String) {
+        disposable.add(
+            getBooksUseCase.searchBook(name)
+                .subscribe({
+                    event.postValue(Event.BooksFetched(it))
+                }, {})
+        )
+    }
+
     private fun decideOrder(orderBy: Orders): Observable<List<Book>> {
         return when (orderBy) {
             Orders.SIZE -> getBooksUseCase.getBooksBySize()
