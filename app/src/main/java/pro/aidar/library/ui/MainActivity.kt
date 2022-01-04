@@ -1,6 +1,5 @@
 package pro.aidar.library.ui
 
-import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
@@ -43,7 +42,7 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         subscribeToLiveData()
         viewModel.fetchBooks()
         binding.addBook.setOnClickListener {
-            rxRequestPermissions(Manifest.permission.READ_EXTERNAL_STORAGE, onRequestGranted = {
+            rxRequestPermissions(onRequestGranted = {
                 pickFile()
             })
         }
@@ -60,7 +59,10 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     }
 
     private fun onBookClick(uri: String) {
-        PdfActivity.start(this, uri)
+        startActivity(
+            Intent(this, PdfActivity::class.java)
+                .putExtra("URI", uri)
+        )
     }
 
     private fun initAdapter() {
