@@ -16,9 +16,9 @@ class MainViewModel @Inject constructor(
         return@lazy CompositeDisposable()
     }
 
-    fun addBook() {
+    fun addBook(model: Book) {
         disposable.add(
-            addBookUseCase.execute(Book(name = "Test"))
+            addBookUseCase.execute(model)
                 .doOnComplete {
 
                 }

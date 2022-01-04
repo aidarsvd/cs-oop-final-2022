@@ -1,17 +1,28 @@
 package pro.aidar.library.ui
 
+import android.Manifest
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
+import androidx.documentfile.provider.DocumentFile
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Calendar
 import pro.aidar.library.R
+import pro.aidar.library.data.dto.Book
 import pro.aidar.library.databinding.ActivityMainBinding
 import pro.aidar.library.ui.adapter.BookAdapter
+import pro.aidar.library.utils.rxRequestPermissions
+import pro.aidar.library.utils.showMessage
 import pro.aidar.library.utils.toggleVisible
 
 @AndroidEntryPoint
@@ -20,18 +31,53 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     private val binding: ActivityMainBinding by viewBinding()
     private val adapter = BookAdapter()
     private val viewModel: MainViewModel by viewModels()
+    private lateinit var resultLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initAdapter()
+        registerActivityResult()
         binding.addBook.setOnClickListener {
-            viewModel.addBook()
+            rxRequestPermissions(Manifest.permission.READ_EXTERNAL_STORAGE, onRequestGranted = {
+                pickFile()
+            })
         }
     }
 
     private fun initAdapter() {
         binding.booksRecycler.adapter = adapter
+    }
+
+    private fun pickFile() {
+        val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
+            type = "application/pdf"
+            addCategory(Intent.CATEGORY_OPENABLE)
+        }
+        resultLauncher.launch(intent)
+    }
+
+    private fun registerActivityResult() {
+        resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val data: Intent? = result.data
+                val uri: Uri = data?.data!!
+                val documentFile = DocumentFile.fromSingleUri(this, uri)
+                documentFile?.let {
+                    val book = Book(
+                        name = it.name,
+                        size = it.length(),
+                        updateDate = Calendar.getInstance().time,
+                        bookUri = uri.toString()
+                    )
+                    viewModel.addBook(model = book)
+                } ?: run {
+                    showMessage(
+                        getString(R.string.file_not_found)
+                    )
+                }
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

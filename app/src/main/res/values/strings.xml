@@ -5,4 +5,7 @@
     <string name="sort_by_name">Sort by name</string>
     <string name="sort_by_book_size">Sort by book size</string>
     <string name="add_book">add book</string>
+    <string name="permission_required">Permission required</string>
+    <string name="ok">OK</string>
+    <string name="file_not_found">File not found</string>
 </resources>
