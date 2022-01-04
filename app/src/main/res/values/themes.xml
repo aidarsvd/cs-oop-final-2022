@@ -13,4 +13,13 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="SortButton">
+        <item name="android:button">@null</item>
+        <item name="android:layout_marginHorizontal">@dimen/_6sdp</item>
+        <item name="android:background">@drawable/sort_select</item>
+        <item name="android:padding">@dimen/_10sdp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
 </resources>

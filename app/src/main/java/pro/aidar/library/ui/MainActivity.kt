@@ -5,10 +5,12 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.isVisible
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import pro.aidar.library.R
 import pro.aidar.library.databinding.ActivityMainBinding
+import pro.aidar.library.utils.toggleVisible
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
@@ -23,12 +25,24 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_toolbar, menu)
         val searchItem = menu?.findItem(R.id.action_search)
+
+        val sortItem = menu?.findItem(R.id.action_sort)!!
+
+        sortItem.setOnMenuItemClickListener {
+            binding.sortView.toggleVisible()
+            binding.sortGroup.clearCheck()
+            true
+        }
+
         searchItem?.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
             override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
+                binding.sortView.isVisible = false
+                binding.sortGroup.clearCheck()
                 return true
             }
 
             override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
+                binding.sortView.isVisible = false
                 return true
             }
         })
