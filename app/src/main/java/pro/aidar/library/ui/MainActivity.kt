@@ -22,6 +22,8 @@ import pro.aidar.library.data.dto.Book
 import pro.aidar.library.data.dto.Event
 import pro.aidar.library.databinding.ActivityMainBinding
 import pro.aidar.library.ui.adapter.BookAdapter
+import pro.aidar.library.ui.bottom_sheet.BottomSheetListener
+import pro.aidar.library.ui.bottom_sheet.EditBookBottomFragment
 import pro.aidar.library.ui.bottom_sheet.InfoBookBottomFragment
 import pro.aidar.library.utils.displayPopUp
 import pro.aidar.library.utils.isPdf
@@ -30,7 +32,7 @@ import pro.aidar.library.utils.showMessage
 import pro.aidar.library.utils.toggleVisible
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
+class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener, BottomSheetListener {
     private lateinit var searchView: SearchView
     private val binding: ActivityMainBinding by viewBinding()
     private val adapter = BookAdapter(::onBookClick, ::onMoreClick)
@@ -87,7 +89,7 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         displayPopUp(
             view = view,
             edit = {
-
+                EditBookBottomFragment.newInstance(model, this).show(supportFragmentManager, InfoBookBottomFragment.TAG)
             },
             info = {
                 InfoBookBottomFragment.newInstance(model).show(supportFragmentManager, InfoBookBottomFragment.TAG)
@@ -110,28 +112,26 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     private fun registerActivityResult() {
         resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                val data: Intent? = result.data
-                val uri: Uri = data?.data!!
+                val uri: Uri = result.data?.data!!
                 val documentFile = DocumentFile.fromSingleUri(this, uri)
                 documentFile?.let {
-                    if (it.isPdf()) {
-                        val book = Book(
-                            name = it.name,
-                            size = it.length(),
-                            updateDate = Calendar.getInstance().time,
-                            bookUri = uri.toString()
-                        )
-                        viewModel.addBook(model = book)
-                    } else {
-                        showMessage("Pick file with PDF extension!")
-                    }
+                    if (it.isPdf()) addBook(it, uri)
+                    else showMessage(getString(R.string.doc_extension_error))
                 } ?: run {
-                    showMessage(
-                        getString(R.string.file_not_found)
-                    )
+                    showMessage(getString(R.string.file_not_found))
                 }
             }
         }
+    }
+
+    private fun addBook(it: DocumentFile, uri: Uri) {
+        val book = Book(
+            name = it.name,
+            size = it.length(),
+            updateDate = Calendar.getInstance().time,
+            bookUri = uri.toString()
+        )
+        viewModel.addBook(model = book)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -170,4 +170,11 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     }
 
     override fun onQueryTextChange(newText: String?) = true
+
+    override fun onSave(book: Book) {
+        book
+    }
+
+    override fun onDelete(book: Book) {
+    }
 }

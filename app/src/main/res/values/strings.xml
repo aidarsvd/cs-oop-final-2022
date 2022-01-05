@@ -10,12 +10,20 @@
     <string name="file_not_found">File not found</string>
     <string name="edit">Edit</string>
     <string name="info">Info</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="book_name">Book Name:</string>
-    <string name="book_size">Book size</string>
+    <string name="book_size">Book size:</string>
     <string name="book_author">Book author:</string>
     <string name="book_genre">Book genre:</string>
     <string name="last_update">Last update:</string>
+
+    <string name="book_name_label">Book Name*</string>
+    <string name="book_size_label">Book size*</string>
+    <string name="book_author_label">Book author*</string>
+    <string name="book_genre_label">Book genre*</string>
+    <string name="last_update_label">Last update*</string>
+
     <string name="none_stub">None</string>
+    <string name="doc_extension_error">Pick file with PDF extension!</string>
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
 </resources>
