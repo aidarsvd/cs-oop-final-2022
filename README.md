@@ -17,6 +17,8 @@
 ### Search book
 ![Screenshot_20220105_230132_pro aidar library](https://user-images.githubusercontent.com/50268957/148260136-16d5ba35-4300-4e8e-bb89-e160d245a6af.jpg)
 
+
+#### Currently there are 2 contributors for this repositpry.
 <a href="https://github.com/aidarsvd/cs-oop-final-2022/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=aidarsvd/cs-oop-final-2022" />
 </a>
