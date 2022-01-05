@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.DialogFragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import java.util.Calendar
 import org.parceler.Parcels
 import pro.aidar.library.R
 import pro.aidar.library.data.dto.Book
@@ -32,6 +34,7 @@ class EditBookBottomFragment : BottomSheetDialogFragment() {
 
     override fun onResume() {
         super.onResume()
+        toggleButton()
     }
 
     override fun onCreateView(
@@ -45,23 +48,44 @@ class EditBookBottomFragment : BottomSheetDialogFragment() {
         arguments?.let {
             book = Parcels.unwrap(it.getParcelable(BOOK))
         }
-
         book.run {
             binding.bookName.setText(name)
             binding.bookAuthor.setText(author ?: "")
             binding.bookGenre.setText(genre ?: "")
             binding.bookSize.text = book.size!!.toMb()
             binding.bookUpdate.text = book.updateDate!!.toStringFormat()
-            binding.saveBtn.setOnClickListener { listener.onSave(this) }
-            binding.deleteBtn.setOnClickListener { listener.onDelete(this) }
+        }
+        initListeners()
+    }
+
+    private fun initListeners() {
+        with(binding) {
+            saveBtn.setOnClickListener {
+                book.updateDate = Calendar.getInstance().time
+                listener.onSave(book)
+                dismiss()
+            }
+            deleteBtn.setOnClickListener {
+                listener.onDelete(book)
+                dismiss()
+            }
+            bookName.addTextChangedListener {
+                book.name = it.toString()
+                toggleButton()
+            }
+            bookAuthor.addTextChangedListener { book.author = it.toString() }
+            bookGenre.addTextChangedListener { book.genre = it.toString() }
         }
     }
 
     private fun toggleButton() {
+        binding.run {
+            saveBtn.isEnabled = bookName.text.isNotBlank()
+        }
     }
 
     companion object {
-        const val TAG = "InfoBookBottomFragment"
+        const val TAG = "EditBookBottomFragment"
         private const val BOOK = "ID_DOC"
         fun newInstance(model: Book, clickListener: BottomSheetListener) = EditBookBottomFragment().apply {
             arguments = Bundle().apply {

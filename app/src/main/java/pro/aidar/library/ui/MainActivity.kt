@@ -24,7 +24,9 @@ import pro.aidar.library.databinding.ActivityMainBinding
 import pro.aidar.library.ui.adapter.BookAdapter
 import pro.aidar.library.ui.bottom_sheet.BottomSheetListener
 import pro.aidar.library.ui.bottom_sheet.EditBookBottomFragment
+import pro.aidar.library.ui.bottom_sheet.EditBookBottomFragment.Companion.newInstance
 import pro.aidar.library.ui.bottom_sheet.InfoBookBottomFragment
+import pro.aidar.library.ui.bottom_sheet.InfoBookBottomFragment.Companion.newInstance
 import pro.aidar.library.utils.displayPopUp
 import pro.aidar.library.utils.isPdf
 import pro.aidar.library.utils.rxRequestPermissions
@@ -89,10 +91,10 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener, Bottom
         displayPopUp(
             view = view,
             edit = {
-                EditBookBottomFragment.newInstance(model, this).show(supportFragmentManager, InfoBookBottomFragment.TAG)
+                newInstance(model, this).show(supportFragmentManager, EditBookBottomFragment.TAG)
             },
             info = {
-                InfoBookBottomFragment.newInstance(model).show(supportFragmentManager, InfoBookBottomFragment.TAG)
+                newInstance(model).show(supportFragmentManager, InfoBookBottomFragment.TAG)
             }
         )
     }
