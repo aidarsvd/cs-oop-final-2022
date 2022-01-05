@@ -1,4 +1,4 @@
-package pro.aidar.library.ui
+package pro.aidar.library.ui.main
 
 import android.app.Activity
 import android.content.Intent
@@ -21,6 +21,7 @@ import pro.aidar.library.R
 import pro.aidar.library.data.dto.Book
 import pro.aidar.library.data.dto.Event
 import pro.aidar.library.databinding.ActivityMainBinding
+import pro.aidar.library.ui.pdf.PdfActivity
 import pro.aidar.library.ui.adapter.BookAdapter
 import pro.aidar.library.ui.bottom_sheet.BottomSheetListener
 import pro.aidar.library.ui.bottom_sheet.EditBookBottomFragment

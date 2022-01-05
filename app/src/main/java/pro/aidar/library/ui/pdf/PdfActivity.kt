@@ -1,4 +1,4 @@
-package pro.aidar.library.ui
+package pro.aidar.library.ui.pdf
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

@@ -20,6 +20,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_7sdp"
         android:background="@null"
+        android:imeOptions="actionNext"
+        android:inputType="text"
+        android:maxLength="40"
+        android:maxLines="1"
         android:textColor="@color/black"
         android:textSize="@dimen/_14sdp"
         android:textStyle="bold"
@@ -46,6 +50,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_7sdp"
         android:background="@null"
+        android:imeOptions="actionNext"
+        android:inputType="text"
+        android:maxLength="40"
+        android:maxLines="1"
         android:textColor="@color/black"
         android:textSize="@dimen/_14sdp"
         android:textStyle="bold"
@@ -72,6 +80,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_7sdp"
         android:background="@null"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:maxLength="25"
+        android:maxLines="1"
         android:textColor="@color/black"
         android:textSize="@dimen/_14sdp"
         android:textStyle="bold"
@@ -129,14 +141,14 @@
         tools:text="12.12.2021" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:textStyle="bold"
-        android:textColor="@color/white"
-        android:background="@drawable/btn_bg"
         android:id="@+id/save_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_12sdp"
-        android:text="@string/save" />
+        android:background="@drawable/btn_bg"
+        android:text="@string/save"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/delete_btn"

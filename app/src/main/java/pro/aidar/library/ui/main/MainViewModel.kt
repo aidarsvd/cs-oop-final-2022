@@ -1,4 +1,4 @@
-package pro.aidar.library.ui
+package pro.aidar.library.ui.main
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

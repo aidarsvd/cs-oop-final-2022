@@ -16,10 +16,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Library">
         <activity
-            android:name=".ui.PdfActivity"
+            android:name=".ui.pdf.PdfActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.main.MainActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
