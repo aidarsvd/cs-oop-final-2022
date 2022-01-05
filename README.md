@@ -21,10 +21,7 @@
 #### Currently there are 2 contributors for this repository.
 <a href="https://github.com/aidarsvd/cs-oop-final-2022/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=aidarsvd/cs-oop-final-2022" />
-</a>
-
-
-
+</a><br/><br/>
 ```
                                  Apache License
                            Version 2.0, January 2004
