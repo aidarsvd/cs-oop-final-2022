@@ -73,9 +73,10 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener, Bottom
     private fun subscribeToLiveData() {
         viewModel.event.observe(this, {
             when (it) {
-                is Event.BookInserted -> viewModel.fetchBooks()
-                is Event.BookInsertError -> showMessage("Can not add book")
+                is Event.BooksUpdated -> viewModel.fetchBooks()
+                is Event.BookInsertError -> showMessage(getString(R.string.add_book_exception))
                 is Event.BooksFetched -> adapter.addBooks(it.list)
+                is Event.Notification -> showMessage(it.message)
             }
         })
     }
@@ -139,9 +140,7 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener, Bottom
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_toolbar, menu)
         val searchItem = menu?.findItem(R.id.action_search)
-
         val sortItem = menu?.findItem(R.id.action_sort)!!
-
         sortItem.setOnMenuItemClickListener {
             binding.sortView.toggleVisible()
             binding.sortGroup.clearCheck()
@@ -174,9 +173,10 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener, Bottom
     override fun onQueryTextChange(newText: String?) = true
 
     override fun onSave(book: Book) {
-        book
+        viewModel.updateBook(book)
     }
 
     override fun onDelete(book: Book) {
+        viewModel.deleteBook(book)
     }
 }

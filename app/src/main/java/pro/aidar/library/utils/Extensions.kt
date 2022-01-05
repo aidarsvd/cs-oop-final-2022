@@ -91,8 +91,8 @@ fun Activity.openApplicationSettings() {
     )
 }
 
-fun Context.showMessage(text: String) {
-    Toast.makeText(this, text, Toast.LENGTH_LONG).show()
+fun Context.showMessage(text: String?) {
+    text?.let { Toast.makeText(this, text, Toast.LENGTH_LONG).show() }
 }
 
 fun DocumentFile.isPdf(): Boolean {

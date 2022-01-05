@@ -8,7 +8,7 @@ import pro.aidar.library.data.data.get_books.repository.GetBooksRepository
 import pro.aidar.library.data.domain.get_books.dao.GetBooksDao
 import pro.aidar.library.data.dto.Book
 
-class GetBooksRepositoryImpl @Inject constructor(
+class GetBooksRepositoryImpl(
     private val dao: GetBooksDao
 ) : GetBooksRepository {
     override fun getBooks(): Observable<List<Book>> {
