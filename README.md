@@ -7,12 +7,11 @@
 ### Book detail view
 ![Screenshot_20220105_230048_pro aidar library](https://user-images.githubusercontent.com/50268957/148260363-4348e7c3-c942-49ad-9c85-ea5504483863.jpg)
 
-
 ### Book editing
-
+![Screenshot_20220105_230103_pro aidar library](https://user-images.githubusercontent.com/50268957/148260401-5b4e05cb-bd7e-4ab7-8214-cfae32a50c48.jpg)
 
 ### Sort books
-
+![Screenshot_20220105_230120_pro aidar library](https://user-images.githubusercontent.com/50268957/148260434-f8f4b1ab-7a7f-4b15-ac4f-5f8fb6eb1823.jpg)
 
 ### Search book
 ![Screenshot_20220105_230132_pro aidar library](https://user-images.githubusercontent.com/50268957/148260136-16d5ba35-4300-4e8e-bb89-e160d245a6af.jpg)
